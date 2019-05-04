@@ -109,8 +109,9 @@ weatherdata = pd.DataFrame(columns=columns)
 #### This block of code is where the magic happens.
 *  We create a few numbers to use as the dataframe index and output while processing
 * For each city in the list of cities this runs the function defined previously and tries to process it by adding all of the required information to the dataframe.  
-** If the city cannot be retreived with the openweatherapi it skips it and informs the user that it cannot be found.  
-** This groups the data into sets of 50, so once the iterator (record) goes above 50 it increments the set and resets the iterator to 1.
+    * This block of code in the "try" statement then sleeps for a a random interval between 1 and 3 seconds.
+    * If the city cannot be retreived with the openweatherapi it skips it and informs the user that it cannot be found.  
+    * This then groups the data into sets of 50, so once the iterator (record) goes above 50 it increments the set and resets the iterator to 1.
 
 ```
 print(f"Beinning Data Retreival")
@@ -145,6 +146,8 @@ for city in cities:
             group += 1
 
 ```
+* Snippet of output from previous block of code.  To see entire output feel free to view the notebook file.  
+
 ```
 Beinning Data Retreival
 ---------------------------
@@ -252,6 +255,8 @@ Processing Record 28 of Set 2 | upernavik
 Processing Record 29 of Set 2 | egvekinot
 Processing Record 30 of Set 2 | cockburn town
 ```
+
+#### This prints an overview of the dataframe to ensure that data has been properly added to it.
 ```
 weatherdata.count()
 
@@ -266,6 +271,8 @@ Max Temp      579
 Wind Speed    579
 dtype: int64
 ```
+
+#### This prints the first few rows of the dataframe to view some of the data to ensure it is correct.
 ```
 weatherdata.head()
 ```
@@ -280,6 +287,7 @@ weatherdata.head()
 ```
 weatherdata.to_csv(output_data_file)
 ```
+### Here we begin plotting all the data
 
 #### Latitude vs. Temperature Plot
 ```
