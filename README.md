@@ -45,7 +45,7 @@ These two charts are Latitude (on the Left) and Longitude (on the Right) versus 
 # Time for An insight into the Code.
 
 
-### Here we import the dependcies and do some basic set up.
+#### Here we import the dependcies and do some basic set up.
 ```
 # Dependencies and Setup
 import matplotlib.pyplot as plt
@@ -69,6 +69,7 @@ lat_range = (-90, 90)
 lng_range = (-180, 180)
 ```
 
+#### This block of code generates a list of cities to run through the openweatherapi to get the current weather and then prints the amount of cities
 ```
 # List for holding lat_lngs and cities
 lat_lngs = []
@@ -93,14 +94,24 @@ len(cities)
 ```
 629
 ```
+#### Defined a function to complete the API call, not necessaray but made things easier.
 ```
 def api_call(x,y):
     return requests.get(f'http://api.openweathermap.org/data/2.5/weather?units=Imperial&APPID={x}&q={y}').json()
 ```
+
+#### Set up columns for dataframe and then creates the dataframe with the columns.
 ```
 columns = ("City","Cloudiness","Country","Date","Humidity","Lat","Lng","Max Temp","Wind Speed")
 weatherdata = pd.DataFrame(columns=columns)
 ```
+
+#### This block of code is where the magic happens.
+*  We create a few numbers to use as the dataframe index and output while processing
+* For each city in the list of cities this runs the function defined previously and tries to process it by adding all of the required information to the dataframe.  
+** If the city cannot be retreived with the openweatherapi it skips it and informs the user that it cannot be found.  
+** This groups the data into sets of 50, so once the iterator (record) goes above 50 it increments the set and resets the iterator to 1.
+
 ```
 print(f"Beinning Data Retreival")
 print("-"*27)
